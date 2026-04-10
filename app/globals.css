@@ -6,11 +6,19 @@
 ------------------------------ */
 
 :root {
-  --cream: #FFF9D5;
-  --gold: #BD8018;
-  --navy: #050A30;
-  --brown: #7A5C4A;
-  --brown-dark: #3D2719;
+  --cream: #F5F0E1;
+  --cream2: #EDE8D5;
+  --warm: #FAF7F0;
+  --gold: #B8872A;
+  --gold-l: #D4A84B;
+  --dark: #1A1408;
+  --text: #2C2410;
+  --muted: #7A6A4A;
+
+  /* Compatibility aliases for existing component classes */
+  --navy: var(--dark);
+  --brown: var(--muted);
+  --brown-dark: var(--text);
   --black: #000000;
 
   --transition-base: 300ms;
@@ -36,7 +44,7 @@ html {
 body {
   margin: 0;
   background-color: var(--cream);
-  color: var(--navy);
+  color: var(--text);
   font-family: var(--font-montserrat), system-ui, sans-serif;
   line-height: 1.6;
   overflow-x: hidden;

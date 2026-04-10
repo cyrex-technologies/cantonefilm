@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { createPortal } from 'react-dom';
 import { X, Send, User, Mail, Phone, MessageSquare, Building, FileText } from 'lucide-react';
 import Button from '@/components/ui/Button';
@@ -29,6 +29,9 @@ const services = [
 ];
 
 export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
+  const modalRef = useRef<HTMLDivElement | null>(null);
+  const previousFocusRef = useRef<HTMLElement | null>(null);
+  const timeoutRef = useRef<number | null>(null);
   const [formData, setFormData] = useState<FormData>({
     name: '',
     email: '',
@@ -43,14 +46,29 @@ export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
   // Prevent body scroll when modal is open
   useEffect(() => {
     if (isOpen) {
+      previousFocusRef.current = document.activeElement as HTMLElement | null;
       document.body.style.overflow = 'hidden';
+      window.requestAnimationFrame(() => {
+        modalRef.current
+          ?.querySelector<HTMLButtonElement>('button[aria-label="Close modal"]')
+          ?.focus();
+      });
     } else {
       document.body.style.overflow = 'unset';
+      previousFocusRef.current?.focus?.();
     }
     return () => {
       document.body.style.overflow = 'unset';
     };
   }, [isOpen]);
+
+  useEffect(() => {
+    return () => {
+      if (timeoutRef.current !== null) {
+        window.clearTimeout(timeoutRef.current);
+      }
+    };
+  }, []);
 
   // Close on escape key
   useEffect(() => {
@@ -59,8 +77,39 @@ export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
         onClose();
       }
     };
+
+    const handleTab = (e: KeyboardEvent) => {
+      if (!isOpen || e.key !== 'Tab') return;
+
+      const focusableElements = modalRef.current?.querySelectorAll<HTMLElement>(
+        'a[href], button:not([disabled]), textarea, input, select, [tabindex]:not([tabindex="-1"])'
+      );
+
+      if (!focusableElements || focusableElements.length === 0) return;
+
+      const focusables = Array.from(focusableElements);
+      const first = focusables[0];
+      const last = focusables[focusables.length - 1];
+      const activeElement = document.activeElement as HTMLElement | null;
+
+      if (e.shiftKey && activeElement === first) {
+        e.preventDefault();
+        last.focus();
+        return;
+      }
+
+      if (!e.shiftKey && activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      }
+    };
+
     window.addEventListener('keydown', handleEscape);
-    return () => window.removeEventListener('keydown', handleEscape);
+    window.addEventListener('keydown', handleTab);
+    return () => {
+      window.removeEventListener('keydown', handleEscape);
+      window.removeEventListener('keydown', handleTab);
+    };
   }, [isOpen, onClose]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
@@ -98,7 +147,7 @@ export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
       setSubmitStatus('success');
       
       // Reset form after success
-      setTimeout(() => {
+      timeoutRef.current = window.setTimeout(() => {
         setFormData({
           name: '',
           email: '',
@@ -110,7 +159,7 @@ export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
         setSubmitStatus('idle');
         onClose();
       }, 2000);
-    } catch (error) {
+    } catch {
       setSubmitStatus('error');
     } finally {
       setIsSubmitting(false);
@@ -130,8 +179,13 @@ export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
 
       {/* Modal */}
       <div 
+        ref={modalRef}
         className="relative z-10 bg-cream w-full max-w-4xl max-h-[90vh] overflow-y-auto contact-modal-animate"
         onClick={(e) => e.stopPropagation()}
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="contact-modal-title"
+        aria-describedby="contact-modal-description"
       >
         {/* Header */}
         <div className="sticky top-0 bg-gradient-to-br from-navy to-brown p-6 md:p-8 z-10">
@@ -153,14 +207,14 @@ export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
               </span>
             </div>
             
-            <h2 className="text-4xl md:text-5xl font-bold text-cream mb-4">
-              Let's Create Something
+            <h2 id="contact-modal-title" className="text-4xl md:text-5xl font-bold text-cream mb-4">
+              Let&apos;s Create Something
               <br />
               <span className="text-gold">Extraordinary</span>
             </h2>
             
-            <p className="text-cream/80 text-lg">
-              Tell us about your project and let's bring your vision to life.
+            <p id="contact-modal-description" className="text-cream/80 text-lg">
+              Tell us about your project and let&apos;s bring your vision to life.
             </p>
           </div>
         </div>
@@ -175,7 +229,7 @@ export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
               </div>
               <h3 className="text-3xl font-bold text-navy mb-4">Thank You!</h3>
               <p className="text-brown/80 text-lg max-w-md mx-auto">
-                Your message has been sent successfully. We'll get back to you within 24 hours.
+                Your message has been sent successfully. We&apos;ll get back to you within 24 hours.
               </p>
             </div>
           ) : (

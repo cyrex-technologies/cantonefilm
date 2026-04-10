@@ -2,59 +2,78 @@
 
 export const services = [
   {
-    id: 'film-documentary-media-production',
-    title: 'Film, Documentary, and Media Production',
-    backgroundTitle: 'PRODUCTION',
+    id: 'feature-films',
+    title: 'Feature Films',
+    backgroundTitle: 'FILMS',
     description:
-      'We produce high-quality documentaries and films that capture real stories, programs, and experiences. From planning and filming to final delivery, we create clear, engaging visual content that communicates purpose and impact.',
+      'Original narrative films driven by strong storytelling and refined visual craft - from development through final cut.',
     image: '/img/portfolio/documentary-banner.png',
     features: [
-      'Documentary & Corporate Films',
-      'Field & Studio Production',
-      'Professional Crews & Equipment',
-      'End-to-End Delivery',
+      'Narrative Development',
+      'Production Planning',
+      'Cinematic Direction',
+      'Final Cut Delivery',
     ],
     cta: {
-      label: 'View Film Projects',
-      href: '/services/film-video',
+      label: 'Discuss a Film Project',
+      href: '/#contact',
     },
   },
 
   {
-    id: 'story-development-visual-strategy',
-    title: 'Story Development & Visual Strategy',
-    backgroundTitle: 'STORY',
+    id: 'documentaries',
+    title: 'Documentaries',
+    backgroundTitle: 'DOCS',
     description:
-      'Strong stories begin with clarity. We support projects through research, concept development, scripting, and visual planning to align each film with communication goals, audience needs, and real-world context.',
+      'Non-fiction projects that capture real stories with cinematic depth - local, regional, and international subjects.',
     image: '/img/portfolio/left-documentary-banner.png',
     features: [
-      'Research & Concept Development',
-      'Scripting & Storyboarding',
-      'Visual Planning',
-      'Production Strategy',
+      'Real-World Stories',
+      'Field Production',
+      'Documentary Interviews',
+      'Cinematic Storytelling',
     ],
     cta: {
-      label: 'Explore Our Process',
-      href: '/services/creative-development',
+      label: 'Plan a Documentary',
+      href: '/#contact',
     },
   },
 
   {
-    id: 'post-production-content-delivery',
-    title: 'Post-Production & Content Delivery',
-    backgroundTitle: 'POST',
+    id: 'tv-content',
+    title: 'TV Content',
+    backgroundTitle: 'TV',
     description:
-      'We transform raw footage into polished, professional films through editing, sound design, color grading, and formatting for digital platforms, presentations, reporting, and broadcast use.',
+      'Television productions that engage and entertain across fiction and non-fiction formats for broadcast and streaming.',
     image: '/img/portfolio/documentary-banner.png',
     features: [
-      'Editing & Sound Design',
-      'Color Grading',
-      'Subtitles & Accessibility',
-      'Delivery for Web & Broadcast',
+      'Broadcast Formats',
+      'Series Production',
+      'Entertainment Content',
+      'Streaming-Ready Delivery',
     ],
     cta: {
-      label: 'See Post-Production Work',
-      href: '/services/post-production',
+      label: 'Develop TV Content',
+      href: '/#contact',
+    },
+  },
+
+  {
+    id: 'institutional',
+    title: 'Institutional',
+    backgroundTitle: 'IMPACT',
+    description:
+      'Communication projects for organisations and partners - helping ideas, impact, and vision reach their audience effectively.',
+    image: '/img/portfolio/left-documentary-banner.png',
+    features: [
+      'NGO Communication',
+      'Institutional Films',
+      'Impact Storytelling',
+      'Audience-Focused Delivery',
+    ],
+    cta: {
+      label: 'Start an Institutional Project',
+      href: '/#contact',
     },
   },
 ] as const;

@@ -1,142 +1,241 @@
 'use client';
 
+import { useState } from 'react';
 import Container from '@/components/layout/Container';
-import Section from '@/components/ui/Section';
 import Button from '@/components/ui/Button';
+import { homeContent } from '@/data/home';
+import { site } from '@/data/site';
 import { useInView } from '@/hooks/useInView';
-import { ArrowRight, Mail, Phone, MessageCircle } from 'lucide-react';
-import { openContactModal } from '@/components/modals/contactModalEvents';
+import { ArrowRight } from 'lucide-react';
+
+type ContactFormState = {
+  name: string;
+  email: string;
+  projectType: string;
+  message: string;
+};
+
+const initialState: ContactFormState = {
+  name: '',
+  email: '',
+  projectType: '',
+  message: '',
+};
 
 export default function CTASection() {
-  const [ctaRef, ctaInView] = useInView();
+  const [sectionRef, inView] = useInView({ threshold: 0.15 });
+  const [formData, setFormData] = useState<ContactFormState>(initialState);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
+  const section = homeContent.contact;
+
+  const handleChange = (
+    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    const { name, value } = event.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
+  };
+
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    setIsSubmitting(true);
+    setSubmitStatus('idle');
+
+    try {
+      const payload = new FormData();
+      payload.append('name', formData.name);
+      payload.append('email', formData.email);
+      payload.append('service', formData.projectType);
+      payload.append('message', formData.message);
+
+      const response = await fetch('https://usebasin.com/f/9ff4d58c8d07', {
+        method: 'POST',
+        body: payload,
+        headers: {
+          Accept: 'application/json',
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to submit form');
+      }
+
+      setSubmitStatus('success');
+      setFormData(initialState);
+    } catch {
+      setSubmitStatus('error');
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   return (
-    <Section className="relative bg-cream overflow-hidden">
-      {/* Large decorative background elements */}
-      <div className="absolute top-0 left-0 w-[500px] h-[500px] bg-gold/10 rounded-full blur-3xl -translate-x-48 -translate-y-48" />
-      <div className="absolute bottom-0 right-0 w-[600px] h-[600px] bg-brown/10 rounded-full blur-3xl translate-x-48 translate-y-48" />
-      
+    <section
+      id="contact"
+      ref={sectionRef}
+      className="relative overflow-hidden bg-navy py-24 text-cream md:py-32"
+    >
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(189,128,24,0.18),transparent_32%)]" />
+
       <Container>
         <div
-          ref={ctaRef}
-          className={`relative transition-all duration-1000 ${
-            ctaInView ? 'opacity-100 scale-100' : 'opacity-0 scale-95'
+          className={`mx-auto max-w-3xl text-center transition-all duration-1000 ${
+            inView ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
           }`}
         >
-          {/* Main CTA Container */}
-          <div className="relative max-w-6xl mx-auto rounded-3xl shadow-xl overflow-hidden">
-            
-            {/* Background pattern overlay */}
-            <div className="absolute inset-0 opacity-[0.03]" style={{
-              backgroundImage: `radial-gradient(circle at 2px 2px, rgba(5, 10, 48, 0.5) 1px, transparent 0)`,
-              backgroundSize: '40px 40px'
-            }} />
+          <p className="text-sm font-semibold uppercase tracking-[0.28em] text-gold">
+            {section.eyebrow}
+          </p>
+          <h2 className="mt-5 text-4xl font-bold leading-tight text-cream md:text-5xl lg:text-6xl">
+            {section.title}
+            <span className="block text-gold italic">{section.emphasis}</span>
+          </h2>
+          <p className="mt-6 text-base leading-8 text-cream/75 md:text-lg">
+            {section.description}
+          </p>
+        </div>
 
-            {/* Content wrapper with gradient background */}
-            <div className="relative bg-gradient-to-br from-brown to-gold p-10 md:p-16 lg:p-20 overflow-hidden">
-              
-            
-
-              
-
-              {/* Content */}
-              <div className="relative z-10 text-left max-w-4xl">
-                
-                {/* Small label */}
-                <div 
-                  className={`flex items-center justify-start gap-3 mb-6 transition-all duration-1000 ${
-                    ctaInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
-                  }`}
-                  style={{ transitionDelay: '0.2s' }}
-                >
-                  <div className="w-12 h-px bg-gold/50" />
-                  <span className="text-cream font-medium tracking-widest text-sm uppercase">
-                    Let&apos;s Create Together
-                  </span>
-                  <div className="w-12 h-px bg-gold/50" />
-                </div>
-
-                {/* Main heading */}
-                <h2 
-                  className={`text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-cream leading-tight transition-all duration-1000 ${
-                    ctaInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
-                  }`}
-                  style={{ transitionDelay: '0.3s' }}
-                >
-                  Ready to Communicate
-                  <br />
-                  <span className="text-gold">Your Project?</span>
-                </h2>
-
-                {/* Description */}
-                <p 
-                  className={`text-lg md:text-xl text-cream mb-10 max-w-2xl leading-relaxed transition-all duration-1000 ${
-                    ctaInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
-                  }`}
-                  style={{ transitionDelay: '0.4s' }}
-                >
-                  Let&apos;s work together to create meaningful visual impact that resonates with your audience and drives real change.
+        <div className="mt-14 grid overflow-hidden rounded-[2rem] border border-gold/15 bg-cream/10 backdrop-blur sm:mt-16 lg:grid-cols-[0.85fr_1.15fr]">
+          <div className="border-b border-gold/15 p-8 lg:border-b-0 lg:border-r lg:p-10">
+            <div className="space-y-6">
+              <div>
+                <p className="text-xs font-semibold uppercase tracking-[0.24em] text-gold/80">
+                  Email
                 </p>
-
-                {/* CTA Buttons */}
-                <div 
-                  className={`flex flex-col sm:flex-row gap-4 justify-start mb-12 transition-all duration-1000 ${
-                    ctaInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
-                  }`}
-                  style={{ transitionDelay: '0.5s' }}
+                <a
+                  href={`mailto:${site.email}`}
+                  className="mt-2 block text-lg font-semibold text-cream transition-colors hover:text-gold"
                 >
-                  <Button
-                    variant="primary"
-                    size="md"
-                    onClick={openContactModal}
-                    className="hover:scale-105 md:px-8 md:py-4 md:text-lg"
-                    rightIcon={
-                      <ArrowRight className="w-5 h-5 group-hover:translate-x-2 transition-transform duration-300" />
-                    }
-                  >
-                    Start Your Project
-                  </Button>
-
-                  <Button
-                    href="/portfolio"
-                    variant="outline-light"
-                    size="md"
-                    className="md:px-8 md:py-4 md:text-lg"
-                    rightIcon={
-                      <ArrowRight className="w-5 h-5 group-hover:translate-x-2 transition-transform duration-300" />
-                    }
-                  >
-                    View Our Work
-                  </Button>
-                </div>
-
-                {/* Contact methods - Quick access */}
-                
+                  {site.email}
+                </a>
               </div>
 
-              {/* Bottom accent line */}
-              <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-gold to-transparent" />
-            </div>
+              <div>
+                <p className="text-xs font-semibold uppercase tracking-[0.24em] text-gold/80">
+                  Phone
+                </p>
+                <a
+                  href={`tel:${site.phone}`}
+                  className="mt-2 block text-lg font-semibold text-cream transition-colors hover:text-gold"
+                >
+                  {site.phone}
+                </a>
+              </div>
 
-            {/* 3D shadow effect */}
-            <div className="absolute inset-0 -z-10 translate-y-2 translate-x-2 bg-gradient-to-br from-brown/40 to-gold/40 blur-xl" />
+              <div>
+                <p className="text-xs font-semibold uppercase tracking-[0.24em] text-gold/80">
+                  Web
+                </p>
+                <span className="mt-2 block text-lg font-semibold text-cream">
+                  www.cantonefilms.com
+                </span>
+              </div>
+
+              <div>
+                <p className="text-xs font-semibold uppercase tracking-[0.24em] text-gold/80">
+                  Instagram
+                </p>
+                <a
+                  href={site.social.instagram}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mt-2 block text-lg font-semibold text-cream transition-colors hover:text-gold"
+                >
+                  @cantonefilms
+                </a>
+              </div>
+            </div>
           </div>
 
-          {/* Testimonial or trust indicator (optional) */}
-          
+          <form onSubmit={handleSubmit} className="space-y-5 p-8 lg:p-10">
+            <div className="grid gap-5 md:grid-cols-2">
+              <label className="block">
+                <span className="mb-2 block text-sm font-medium text-cream/80">
+                  Your Name
+                </span>
+                <input
+                  type="text"
+                  name="name"
+                  value={formData.name}
+                  onChange={handleChange}
+                  placeholder="Full name"
+                  required
+                  className="w-full rounded-2xl border border-gold/20 bg-white/90 px-4 py-3 text-navy placeholder:text-brown/45 focus:border-gold focus:outline-none"
+                />
+              </label>
+
+              <label className="block">
+                <span className="mb-2 block text-sm font-medium text-cream/80">
+                  Email
+                </span>
+                <input
+                  type="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  placeholder="you@example.com"
+                  required
+                  className="w-full rounded-2xl border border-gold/20 bg-white/90 px-4 py-3 text-navy placeholder:text-brown/45 focus:border-gold focus:outline-none"
+                />
+              </label>
+            </div>
+
+            <label className="block">
+              <span className="mb-2 block text-sm font-medium text-cream/80">
+                Project Type
+              </span>
+              <input
+                type="text"
+                name="projectType"
+                value={formData.projectType}
+                onChange={handleChange}
+                placeholder="e.g. Documentary, Feature Film, Institutional"
+                required
+                className="w-full rounded-2xl border border-gold/20 bg-white/90 px-4 py-3 text-navy placeholder:text-brown/45 focus:border-gold focus:outline-none"
+              />
+            </label>
+
+            <label className="block">
+              <span className="mb-2 block text-sm font-medium text-cream/80">
+                Message
+              </span>
+              <textarea
+                name="message"
+                value={formData.message}
+                onChange={handleChange}
+                placeholder="Tell us about your project..."
+                required
+                rows={7}
+                className="w-full rounded-2xl border border-gold/20 bg-white/90 px-4 py-3 text-navy placeholder:text-brown/45 focus:border-gold focus:outline-none"
+              />
+            </label>
+
+            <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+              <Button
+                type="submit"
+                variant="primary"
+                size="md"
+                disabled={isSubmitting}
+                rightIcon={<ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />}
+              >
+                {isSubmitting ? 'Sending...' : 'Send Message'}
+              </Button>
+
+              {submitStatus === 'success' && (
+                <p className="text-sm font-medium text-gold">
+                  Message sent successfully.
+                </p>
+              )}
+
+              {submitStatus === 'error' && (
+                <p className="text-sm font-medium text-red-300">
+                  Something went wrong. Please try again.
+                </p>
+              )}
+            </div>
+          </form>
         </div>
       </Container>
-
-      {/* <style jsx>{`
-        @keyframes shimmer {
-          0% { background-position: -200% 0; }
-          100% { background-position: 200% 0; }
-        }
-
-        .animate-shimmer {
-          animation: shimmer 8s infinite linear;
-        }
-      `}</style> */}
-    </Section>
+    </section>
   );
 }
