@@ -1,38 +1,29 @@
 export interface Partner {
   name: string;
-  logo: string;  
-  url: string;
+  type: string;
+  url?: string;
+  coverImage: string;
 }
 
 export const partners: Partner[] = [
   {
-    name: "UNESCO",
-    logo: "/img/partners/uniceflogo.png",
-    url: "https://unesco.org"
+    name: 'M-Net',
+    type: 'Television Broadcasting',
+    coverImage:'/img/partners/televisionbroadcasting.png'
   },
   {
-    name: "UNICEF",
-    logo: "/img/partners/uniceflogo.png",
-    url: "https://unicef.org"
+    name: 'WorldFish',
+    type: 'International Research',
+    coverImage:'/img/partners/WorldFish_CGIAR_Logo_transparent_hires.png'
   },
   {
-    name: "Red Cross",
-    logo: "/img/partners/uniceflogo.png",
-    url: "https://redcross.org"
+    name: 'Project Zawadi',
+    type: 'Education & Development',
+    coverImage: '/img/partners/ProjectZawadi_Logo_transparent_hires.png'
   },
   {
-    name: "World Bank",
-    logo: "/img/partners/uniceflogo.png",
-    url: "https://worldbank.org"
+    name: 'Tanzania Institute of Education',
+    type: 'Government Institution',
+    coverImage: '/img/partners/TET_logo_transparent_hires.png'
   },
-  {
-    name: "WHO",
-    logo: "/img/partners/uniceflogo.png",
-    url: "https://who.int"
-  },
-  {
-    name: "Save the Children",
-    logo: "/img/partners/uniceflogo.png",
-    url: "https://savethechildren.org"
-  }
 ];

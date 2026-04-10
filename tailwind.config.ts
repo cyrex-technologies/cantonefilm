@@ -10,11 +10,19 @@ const config = {
   theme: {
     extend: {
       colors: {
-        cream: "#FFF9D5",
-        gold: "#BD8018",
-        navy: "#050A30",
-        brown: "#7A5C4A",
-        "brown-dark": "#3D2719",
+        cream: "#F5F0E1",
+        cream2: "#EDE8D5",
+        warm: "#FAF7F0",
+        gold: "#B8872A",
+        "gold-l": "#D4A84B",
+        dark: "#1A1408",
+        text: "#2C2410",
+        muted: "#7A6A4A",
+
+        /* Compatibility aliases for existing class usage */
+        navy: "#1A1408",
+        brown: "#7A6A4A",
+        "brown-dark": "#2C2410",
         black: "#000000",
       },
       fontFamily: {

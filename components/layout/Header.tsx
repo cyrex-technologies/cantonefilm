@@ -7,13 +7,17 @@ import { Menu, X } from "lucide-react";
 import ContactModal from "../modals/ContactModal";
 import ContactButton from "../ui/ContactButton";
 import Button from "../ui/Button";
-import { CONTACT_MODAL_EVENT } from "../modals/contactModalEvents";
+import {
+  CONTACT_MODAL_EVENT,
+  openContactModal,
+} from "../modals/contactModalEvents";
 
 const navItems = [
   { label: "Home", href: "/#home", id: "home" },
   { label: "About", href: "/#about", id: "about" },
   { label: "Services", href: "/#services", id: "services" },
-  { label: "Portfolio", href: "/#portfolio", id: "portfolio" },
+  { label: "Our Work", href: "/#work", id: "work" },
+  { label: "Partners", href: "/#partners", id: "partners" },
 ];
 
 export default function Header() {
@@ -137,7 +141,8 @@ export default function Header() {
             <ContactButton
               variant="primary"
               size="sm"
-              onClick={() => setIsModalOpen(true)}
+              onClick={openContactModal}
+              label="Get in Touch"
             />
           </nav>
 
@@ -224,9 +229,9 @@ export default function Header() {
               className="mt-3"
               onClick={() => {
                 setIsMobileMenuOpen(false);
-                setIsModalOpen(true);
+                openContactModal();
               }}
-              label="Let's Talk"
+              label="Get in Touch"
             />
           </nav>
         </div>

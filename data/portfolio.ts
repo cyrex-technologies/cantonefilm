@@ -1,5 +1,59 @@
 import type { PortfolioItem } from '@/types/interface';
 
+export interface HomePortfolioItem {
+  title: string;
+  category: string;
+  coverImage: string;
+  excerpt: string;
+  featured?: boolean;
+  badge?: string;
+  href?: string;
+  meta?: Array<{
+    label: string;
+    value: string;
+  }>;
+}
+
+export const homePortfolio: HomePortfolioItem[] = [
+  {
+    title: 'Mvamizi',
+    category: 'Feature Film · Cover Story',
+    coverImage: '/img/portfolio/mvamizithumbnail.png',
+    excerpt:
+      'Our award-winning feature film recognised at the Zanzibar International Film Festival. A powerful narrative that blends cinematic craft with deeply human storytelling, bringing Tanzanian voices to international audiences.',
+    featured: true,
+    badge: 'Award Winner · ZIFF',
+    href: 'https://youtu.be/BbUsjVHT3W8?si=yAHvnp3pH4fxvTCB',
+    meta: [
+      { label: 'Format', value: 'Feature Film' },
+      { label: 'Recognition', value: 'ZIFF Award' },
+      { label: 'Year', value: '2022' },
+    ],
+  },
+  {
+    title: 'Teachers Training',
+    category: 'Institutional',
+    coverImage: '/img/portfolio/teachertrainingthumbnail.jpg',
+    excerpt: 'Institutional storytelling focused on teacher development.',
+    href: 'https://vimeo.com/1128669390?fl=ip&fe=ec',
+  },
+  {
+    title: 'Fisheries in Bangladesh',
+    category: 'Institutional',
+    coverImage:
+      '/img/portfolio/fisheriesinbangladesh.JPG',
+    excerpt: 'Institutional work documenting fisheries impact in Bangladesh.',
+    href: 'https://vimeo.com/1066148172',
+  },
+  {
+    title: 'Data Collection Workshop',
+    category: 'Event Coverage',
+    coverImage: '/img/portfolio/datacollectionworkshop.jpg',
+    excerpt: 'Event coverage documenting field activity and participation.',
+    href: 'https://vimeo.com/1127547984?fl=ip&fe=ec',
+  },
+] as const;
+
 export const portfolio: PortfolioItem[] = [
   {
     title: 'Asia–Africa BlueTech Superhighway (AABS) – Multi-Country Video Series',
