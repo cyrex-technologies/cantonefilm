@@ -148,12 +148,20 @@ export default function Footer() {
         <div className="my-14 h-px bg-cream/20" />
 
         {/* Bottom bar */}
-        <div className="flex flex-col md:flex-row items-center justify-between gap-6 text-lg md:text-xl text-cream/60 font-semibold">
+        <div className="flex flex-col md:flex-row items-center justify-between gap-6 text-center md:text-left text-lg md:text-xl text-cream/60 font-semibold">
           <span>
             © {new Date().getFullYear()} {site.name}. All rights reserved.
           </span>
 
-          
+          <a
+            href="https://cyrex.co.tz"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="transition hover:text-gold"
+          >
+            Powered by Cyrex Technologies
+          </a>
+
           <Button
             onClick={scrollToTop}
             variant="ghost"

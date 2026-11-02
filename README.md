@@ -18,6 +18,29 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
+## Deploying to cPanel
+
+This project is a static Next.js export. It does **not** require cPanel's Node.js Application feature in production. The browser submits enquiries to the same-origin PHP endpoint at `/contact-handler.php`.
+
+Build locally with Node.js 20.9 or newer:
+
+```bash
+npm ci
+npm run lint
+npm run build
+php -l public/contact-handler.php
+```
+
+Upload the **contents** of `out/`, not the `out` folder itself, to the domain's cPanel document root. This includes `contact-handler.php`, static pages, and `_next/` assets.
+
+Before uploading, copy [`contact-form-config.example.php`](contact-form-config.example.php) outside the document root as:
+
+```text
+/home/CPANEL_USER/cantonefilms-contact-form-config.php
+```
+
+Replace its placeholders with the authenticated Cantone Films mailbox details and set permissions to `0600`. Do not upload this private file or commit its credentials. The server must have PHP 8+, OpenSSL, and PHP streams enabled.
+
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
 ## Learn More

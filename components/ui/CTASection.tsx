@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import Container from '@/components/layout/Container';
 import Button from '@/components/ui/Button';
 import { homeContent } from '@/data/home';
@@ -27,6 +27,7 @@ export default function CTASection() {
   const [formData, setFormData] = useState<ContactFormState>(initialState);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
+  const startedAtRef = useRef(Date.now());
   const section = homeContent.contact;
 
   const handleChange = (
@@ -42,18 +43,24 @@ export default function CTASection() {
     setSubmitStatus('idle');
 
     try {
-      const payload = new FormData();
-      payload.append('name', formData.name);
-      payload.append('email', formData.email);
-      payload.append('service', formData.projectType);
-      payload.append('message', formData.message);
+      const payload = new URLSearchParams({
+        name: formData.name,
+        email: formData.email,
+        phone: '',
+        company: '',
+        service: formData.projectType,
+        message: formData.message,
+        website: '',
+        started_at: String(startedAtRef.current),
+      });
 
-      const response = await fetch('https://usebasin.com/f/9ff4d58c8d07', {
+      const response = await fetch('/contact-handler.php', {
         method: 'POST',
-        body: payload,
         headers: {
           Accept: 'application/json',
+          'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
         },
+        body: payload.toString(),
       });
 
       if (!response.ok) {
@@ -62,6 +69,7 @@ export default function CTASection() {
 
       setSubmitStatus('success');
       setFormData(initialState);
+      startedAtRef.current = Date.now();
     } catch {
       setSubmitStatus('error');
     } finally {

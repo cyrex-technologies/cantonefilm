@@ -2,6 +2,10 @@ import type { Metadata } from 'next';
 import { portfolio } from '@/data/portfolio';
 import PortfolioProjectClient from '@/components/ui/PortfolioProjectClient';
 
+export function generateStaticParams() {
+  return portfolio.map(({ slug }) => ({ slug }));
+}
+
 export async function generateMetadata(
   { params }: { params: Promise<{ slug: string }> }
 ): Promise<Metadata> {
