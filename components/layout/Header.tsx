@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 import { Menu, X } from "lucide-react";
 import ContactModal from "../modals/ContactModal";
 import ContactButton from "../ui/ContactButton";
@@ -21,10 +22,12 @@ const navItems = [
 ];
 
 export default function Header() {
+  const pathname = usePathname();
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [activeLink, setActiveLink] = useState("home");
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const isDarkHero = pathname === "/" && !isScrolled;
 
   /* ===============================
      Scroll Effect
@@ -95,9 +98,9 @@ export default function Header() {
     <>
       <header
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-          isScrolled
+          !isDarkHero
             ? "bg-cream/95 backdrop-blur-md shadow-lg border-b border-brown/20"
-            : "bg-cream/95 backdrop-blur-md border-b border-brown/10"
+            : "border-b border-transparent bg-transparent"
         }`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 py-4 flex justify-between items-center">
@@ -108,14 +111,14 @@ export default function Header() {
                 src="/LogoCantone–Alpha.webp"
                 alt="Cantone Films logo"
                 fill
-                className="object-contain scale-90"
+                className={`object-contain scale-90 ${isDarkHero ? "brightness-0 invert" : ""}`}
                 priority
               />
             </div>
           </Link>
 
           {/* Desktop Nav */}
-          <nav className="hidden md:flex items-center gap-8">
+          <nav className={`hidden md:flex items-center gap-6 rounded-full px-5 py-2.5 transition-all duration-500 ${isDarkHero ? "border border-white/10 bg-white/[0.07] text-cream shadow-2xl backdrop-blur-md" : ""}`}>
             {navItems.map((item) => (
               <Link
                 key={item.id}
@@ -124,7 +127,7 @@ export default function Header() {
                 className={`relative text-sm font-medium transition-colors duration-300 group ${
                   activeLink === item.id
                     ? "text-gold"
-                    : "text-navy hover:text-gold"
+                    : isDarkHero ? "text-cream/70 hover:text-cream" : "text-navy hover:text-gold"
                 }`}
               >
                 {item.label}
@@ -141,6 +144,7 @@ export default function Header() {
             <ContactButton
               variant="primary"
               size="sm"
+              className={isDarkHero ? "bg-gold text-dark hover:bg-gold-l" : ""}
               onClick={openContactModal}
               label="Get in Touch"
             />
@@ -151,7 +155,7 @@ export default function Header() {
             onClick={() => setIsMobileMenuOpen((prev) => !prev)}
             variant="ghost"
             size="icon"
-            className="md:hidden h-11 w-11 text-navy border border-brown/20 bg-cream/80 hover:text-gold hover:border-gold"
+            className={`md:hidden h-11 w-11 border transition-colors ${isDarkHero ? "border-white/15 bg-white/10 text-cream hover:border-gold hover:text-gold-l" : "border-brown/20 bg-cream/80 text-navy hover:border-gold hover:text-gold"}`}
             ariaLabel="Toggle menu"
           >
             {isMobileMenuOpen ? (
