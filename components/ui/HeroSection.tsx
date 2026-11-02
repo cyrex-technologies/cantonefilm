@@ -60,6 +60,45 @@ export default function CantoneFilmsHero() {
     };
   }, []);
 
+  useEffect(() => {
+    const hero = heroRef.current;
+    if (!hero || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    const restartReel = () => {
+      driftTweenRef.current?.restart();
+    };
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          // Returning to the home section always begins at the intentional
+          // right-edge entry point rather than resuming an old position.
+          restartReel();
+        } else {
+          driftTweenRef.current?.pause();
+        }
+      },
+      { threshold: 0.35 }
+    );
+
+    const handleVisibilityChange = () => {
+      if (document.visibilityState !== 'visible') {
+        driftTweenRef.current?.pause();
+        return;
+      }
+
+      const bounds = hero.getBoundingClientRect();
+      if (bounds.top < window.innerHeight && bounds.bottom > 0) restartReel();
+    };
+
+    observer.observe(hero);
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+    return () => {
+      observer.disconnect();
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
+    };
+  }, [heroRef]);
+
   const pauseDrift = (index: number) => {
     setActiveFrame(index);
     driftTweenRef.current?.pause();
