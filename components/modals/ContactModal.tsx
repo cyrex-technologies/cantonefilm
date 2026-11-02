@@ -32,6 +32,7 @@ export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
   const modalRef = useRef<HTMLDivElement | null>(null);
   const previousFocusRef = useRef<HTMLElement | null>(null);
   const timeoutRef = useRef<number | null>(null);
+  const startedAtRef = useRef(Date.now());
   const [formData, setFormData] = useState<FormData>({
     name: '',
     email: '',
@@ -124,20 +125,19 @@ export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
     setIsSubmitting(true);
 
     try {
-      const payload = new FormData();
-      payload.append('name', formData.name);
-      payload.append('email', formData.email);
-      payload.append('phone', formData.phone);
-      payload.append('company', formData.company);
-      payload.append('service', formData.service);
-      payload.append('message', formData.message);
+      const payload = new URLSearchParams({
+        ...formData,
+        website: '',
+        started_at: String(startedAtRef.current),
+      });
 
-      const response = await fetch('https://usebasin.com/f/9ff4d58c8d07', {
+      const response = await fetch('/contact-handler.php', {
         method: 'POST',
-        body: payload,
         headers: {
           Accept: 'application/json',
+          'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
         },
+        body: payload.toString(),
       });
 
       if (!response.ok) {
@@ -157,6 +157,7 @@ export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
           message: '',
         });
         setSubmitStatus('idle');
+        startedAtRef.current = Date.now();
         onClose();
       }, 2000);
     } catch {
