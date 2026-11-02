@@ -94,8 +94,8 @@ export default function CantoneFilmsHero() {
           </div>
         </div>
 
-      <div className="absolute inset-x-0 bottom-0 z-10" aria-label="Featured Cantone Films work">
-        <div className="absolute bottom-20 left-1/2 w-[128vw] min-w-[920px] -translate-x-1/2 [transform:rotateZ(-5deg)] [transform-origin:center_bottom] sm:bottom-24 lg:bottom-28">
+      <div className="absolute inset-x-0 bottom-0 z-10 [perspective:1600px] [perspective-origin:center_bottom]" aria-label="Featured Cantone Films work">
+        <div className="absolute bottom-20 left-1/2 w-[128vw] min-w-[920px] -translate-x-1/2 transform-gpu [transform:rotateX(12deg)_rotateZ(-5deg)] [transform-origin:center_bottom] sm:bottom-24 lg:bottom-28">
           <div ref={reelTrackRef} className="flex w-max items-end gap-3 px-3 sm:gap-5 sm:px-6 lg:gap-6">
             {Array.from({ length: reelCopies }, () => reelFrames).flat().map((frame, index) => {
               const frameIndex = index % reelFrames.length;
