@@ -55,6 +55,7 @@ export default function PartnersSection() {
                       src={partner.coverImage}
                       alt={partner.name}
                       fill
+                      loading="lazy"
                       className="object-contain transition-transform duration-500 hover:scale-105"
                     />
                   </div>

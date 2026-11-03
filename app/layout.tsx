@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import Script from "next/script";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
-import Preloader from '@/components/ui/Preloader';
+import SiteLoadingSkeleton from '@/components/ui/SiteLoadingSkeleton';
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://cantonefilms.com'),
@@ -32,7 +32,7 @@ gtag('config', 'G-Z6WEG04P9L');`}
         </Script>
       </head>
       <body className="font-sans bg-cream text-black">
-        <Preloader />
+        <SiteLoadingSkeleton />
         <Header />
         <main>{children}</main>
         <Footer />

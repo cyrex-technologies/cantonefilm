@@ -108,7 +108,7 @@ export default function Header() {
           <Link href="/" className="flex items-center gap-3 group">
             <div className="relative h-12 w-40 md:h-14 md:w-48">
               <Image
-                src="/LogoCantone–Alpha.webp"
+                src="/logo-cantone-alpha.webp"
                 alt="Cantone Films logo"
                 fill
                 className={`object-contain scale-90 ${isDarkHero ? "brightness-0 invert" : ""}`}

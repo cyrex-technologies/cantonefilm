@@ -151,7 +151,15 @@ export default function CantoneFilmsHero() {
                   activeFrame === frameIndex ? '-translate-y-2 scale-[1.03] brightness-110' : ''
                 } ${isInactive ? 'scale-[0.98] opacity-55 brightness-75' : 'opacity-100'}`}
               >
-                <Image src={frame.src} alt={frame.alt} fill sizes="(min-width: 1024px) 280px, (min-width: 640px) 230px, 170px" className="object-cover brightness-90 saturate-[0.82] transition duration-700 group-hover:scale-105 group-hover:brightness-100 group-hover:saturate-100" />
+                <Image
+                  src={frame.src}
+                  alt={frame.alt}
+                  fill
+                  priority={index < 4}
+                  loading={index >= 4 ? 'lazy' : undefined}
+                  sizes="(min-width: 1024px) 280px, (min-width: 640px) 230px, 170px"
+                  className="object-cover brightness-90 saturate-[0.82] transition duration-700 group-hover:scale-105 group-hover:brightness-100 group-hover:saturate-100"
+                />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-transparent to-black/10" />
               </article>
               );

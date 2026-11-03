@@ -96,6 +96,7 @@ export default function PortfolioPageClient() {
                     src={project.coverImage}
                     alt={project.title}
                     fill
+                    loading="lazy"
                     className="object-cover group-hover:scale-110 transition-transform duration-700"
                   />
 

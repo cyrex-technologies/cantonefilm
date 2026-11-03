@@ -18,7 +18,7 @@ export const homePortfolio: HomePortfolioItem[] = [
   {
     title: 'Mvamizi',
     category: 'Feature Film · Cover Story',
-    coverImage: '/img/portfolio/mvamizithumbnail.png',
+    coverImage: '/img/portfolio/mvamizithumbnail.webp',
     excerpt:
       'Our award-winning feature film recognised at the Zanzibar International Film Festival. A powerful narrative that blends cinematic craft with deeply human storytelling, bringing Tanzanian voices to international audiences.',
     featured: true,
@@ -33,7 +33,7 @@ export const homePortfolio: HomePortfolioItem[] = [
   {
     title: 'Teachers Training',
     category: 'Institutional',
-    coverImage: '/img/portfolio/teachertrainingthumbnail.jpg',
+    coverImage: '/img/portfolio/teachertrainingthumbnail.webp',
     excerpt: 'Institutional storytelling focused on teacher development.',
     href: 'https://vimeo.com/1128669390?fl=ip&fe=ec',
   },
@@ -41,14 +41,14 @@ export const homePortfolio: HomePortfolioItem[] = [
     title: 'Fisheries in Bangladesh',
     category: 'Institutional',
     coverImage:
-      '/img/portfolio/fisheriesinbangladesh.JPG',
+      '/img/portfolio/fisheriesinbangladesh.webp',
     excerpt: 'Institutional work documenting fisheries impact in Bangladesh.',
     href: 'https://vimeo.com/1066148172',
   },
   {
     title: 'Data Collection Workshop',
     category: 'Event Coverage',
-    coverImage: '/img/portfolio/datacollectionworkshop.jpg',
+    coverImage: '/img/portfolio/datacollectionworkshop.webp',
     excerpt: 'Event coverage documenting field activity and participation.',
     href: 'https://vimeo.com/1127547984?fl=ip&fe=ec',
   },
@@ -59,7 +59,7 @@ export const portfolio: PortfolioItem[] = [
     title: 'Asia–Africa BlueTech Superhighway (AABS) – Multi-Country Video Series',
     slug: 'aabs-bluetech-superhighway',
     category: 'Documentary',
-    coverImage: '/img/portfolio/Asia–AfricaBlueTechSuperhighway(AABS)–Multi-CountryVideoSeries.webp',
+    coverImage: '/img/portfolio/fisheriesinbangladesh.webp',
     excerpt:
       'A multi-country documentary series on the Asia–Africa BlueTech Superhighway (AABS), highlighting how small-scale fishing and aquaculture communities are being supported through data systems, climate-smart technologies, value addition, and inclusive fisheries management.',
     featured: true,
@@ -89,7 +89,7 @@ export const portfolio: PortfolioItem[] = [
     title: 'Tenda Teachers – Teacher Professional Development Video',
     slug: 'tenda-teachers',
     category: 'Impact Stories',
-    coverImage: '/img/portfolio/tenderteacherthumbnail.webp',
+    coverImage: '/img/portfolio/teachertrainingthumbnail.webp',
     excerpt:
       'A documentary highlighting how the Tenda Teachers program strengthens teaching practices and creates more engaging classroom environments for primary school teachers in Tanzania.',
     vimeoId: '1128669390',

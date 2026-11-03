@@ -236,9 +236,10 @@ export default function PortfolioProjectClient({ slug }: { slug: string }) {
                   {[1, 2, 3, 4].map(i => (
                     <div key={i} className="relative aspect-[4/3] bg-navy overflow-hidden">
                       <Image
-                        src={project.coverImage}
-                        alt={`Behind the scenes ${i}`}
-                        fill
+                      src={project.coverImage}
+                      alt={`Behind the scenes ${i}`}
+                      fill
+                      loading="lazy"
                         className="object-cover hover:scale-110 transition-transform duration-700"
                       />
                     </div>
@@ -329,6 +330,7 @@ export default function PortfolioProjectClient({ slug }: { slug: string }) {
                       src={p.coverImage}
                       alt={p.title}
                       fill
+                      loading="lazy"
                       className="object-cover hover:scale-110 transition"
                     />
                   </div>

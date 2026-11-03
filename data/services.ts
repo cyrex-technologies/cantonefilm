@@ -7,7 +7,7 @@ export const services = [
     backgroundTitle: 'FILMS',
     description:
       'Original narrative films driven by strong storytelling and refined visual craft - from development through final cut.',
-    image: '/img/portfolio/documentary-banner.png',
+    image: '/img/portfolio/mvamizithumbnail.webp',
     features: [
       'Narrative Development',
       'Production Planning',
@@ -26,7 +26,7 @@ export const services = [
     backgroundTitle: 'DOCS',
     description:
       'Non-fiction projects that capture real stories with cinematic depth - local, regional, and international subjects.',
-    image: '/img/portfolio/left-documentary-banner.png',
+    image: '/img/portfolio/fisheriesinbangladesh.webp',
     features: [
       'Real-World Stories',
       'Field Production',
@@ -45,7 +45,7 @@ export const services = [
     backgroundTitle: 'TV',
     description:
       'Television productions that engage and entertain across fiction and non-fiction formats for broadcast and streaming.',
-    image: '/img/portfolio/documentary-banner.png',
+    image: '/img/reel/behind-scenes.webp',
     features: [
       'Broadcast Formats',
       'Series Production',
@@ -64,7 +64,7 @@ export const services = [
     backgroundTitle: 'IMPACT',
     description:
       'Communication projects for organisations and partners - helping ideas, impact, and vision reach their audience effectively.',
-    image: '/img/portfolio/left-documentary-banner.png',
+    image: '/img/portfolio/datacollectionworkshop.webp',
     features: [
       'NGO Communication',
       'Institutional Films',

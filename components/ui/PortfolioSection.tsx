@@ -67,6 +67,7 @@ export default function PortfolioSection() {
                 src={featured.coverImage}
                 alt={featured.title}
                 fill
+                loading="lazy"
                 className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.06]"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-navy/40 via-transparent to-transparent" />
@@ -130,6 +131,7 @@ export default function PortfolioSection() {
                     src={project.coverImage}
                     alt={project.title}
                     fill
+                    loading="lazy"
                     className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.08]"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-navy via-navy/20 to-transparent transition-opacity duration-500 group-hover:opacity-90" />

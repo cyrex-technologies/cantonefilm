@@ -22,7 +22,7 @@ const storyFrames = [
     position: 'left',
   },
   {
-    src: '/img/portfolio/mvamizithumbnail.png',
+    src: '/img/portfolio/mvamizithumbnail.webp',
     alt: 'A still from a Cantone Films production',
     position: 'right',
   },
@@ -116,6 +116,7 @@ function StoryFrame({
         src={src}
         alt={alt}
         fill
+        loading="lazy"
         sizes="(min-width: 768px) 33vw, 100vw"
         className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
       />
