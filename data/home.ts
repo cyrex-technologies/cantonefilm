@@ -17,14 +17,8 @@ export const homeContent = {
     number: '01',
     title: 'Crafting',
     emphasis: 'immersive narratives',
-    intro:
-      'Based in Tanzania, we create immersive visual narratives that resonate across audiences and contexts - bridging local African voices with global conversations.',
-    quote:
-      '"Our productions combine creative storytelling with purposeful visual communication - telling the stories that matter, with the craft they deserve."',
-    bodyLeft:
-      'Cantone Films is a narrative-focused film and media production company producing original films, television content, compelling documentaries, and sophisticated institutional projects. We work across fiction and non-fiction formats, creating engaging narratives that entertain audiences',
-    bodyRight:
-      'while helping organisations and partners communicate ideas, impact, and vision effectively. Our portfolio includes award-winning productions recognised at international film festivals alongside communication projects developed with local and international organisations.',
+    description:
+      'Cantone Films is a narrative-focused film and media production company producing original films, television content, compelling documentaries, and sophisticated institutional projects. We work across fiction and non-fiction formats, creating engaging narratives that entertain audiences.',
   },
   services: {
     eyebrow: 'What We Do',

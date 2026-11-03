@@ -1,78 +1,125 @@
 'use client';
 
+import Image from 'next/image';
 import Container from '@/components/layout/Container';
 import { homeContent } from '@/data/home';
 import { useInView } from '@/hooks/useInView';
 
+const storyFrames = [
+  {
+    src: '/img/about/cantonefilms-aboutbg-lg.webp',
+    alt: 'A fish vendor at a market, photographed for a Cantone Films story',
+    position: 'left',
+  },
+  {
+    src: '/img/about/whychooseus.webp',
+    alt: 'Cantone Films crew reviewing footage together',
+    position: 'right',
+  },
+  {
+    src: '/img/reel/behind-scenes.webp',
+    alt: 'Behind the scenes of a Cantone Films production',
+    position: 'left',
+  },
+  {
+    src: '/img/portfolio/mvamizithumbnail.png',
+    alt: 'A still from a Cantone Films production',
+    position: 'right',
+  },
+] as const;
+
 export default function AboutUsSection() {
-  const [sectionRef, inView] = useInView({ threshold: 0.2 });
+  const [sectionRef, inView] = useInView({ threshold: 0.15 });
   const about = homeContent.about;
-  const emphasisLines = about.emphasis.split(' ');
 
   return (
     <section
       id="about"
       ref={sectionRef}
-      className="relative overflow-hidden bg-cream py-24 md:py-32"
+      className="relative min-h-screen overflow-hidden bg-cream"
     >
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(184,135,42,0.08),transparent_32%)]" />
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_bottom_right,rgba(44,36,16,0.05),transparent_35%)]" />
 
       <Container>
-        <div className="grid gap-14 lg:grid-cols-[31rem_minmax(0,1fr)] lg:gap-16">
+        <div className="relative min-h-screen py-20 md:py-24">
           <div
-            className={`transition-all duration-1000 ${
-              inView ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
+            className={`flex items-center gap-4 transition-all duration-700 ${
+              inView ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'
             }`}
           >
-            <p className="text-xs font-semibold uppercase tracking-[0.38em] text-gold md:text-sm">
-              {about.eyebrow}
+            <p className="shrink-0 text-xs font-semibold uppercase tracking-[0.35em] text-gold">
+              {about.number} / {about.eyebrow}
             </p>
-            <div className="mt-10 text-[4.75rem] font-bold leading-none tracking-[-0.05em] text-gold/10 md:text-[5.75rem]">
-              {about.number}
-            </div>
-            <h2 className="-mt-2 text-[3rem] font-black uppercase leading-[0.92] tracking-[-0.05em] text-dark md:text-[4.1rem]">
-              {about.title}
-            </h2>
-            <div className="text-gold">
-              {emphasisLines.map((line) => (
-                <span
-                  key={line}
-                  className="block text-[2.7rem] font-light italic leading-[0.9] tracking-[-0.04em] md:text-[4rem]"
-                >
-                  {line}
-                </span>
-              ))}
-            </div>
-            <div className="mt-9 h-[3px] w-9 bg-gold" />
-            <p className="mt-10 max-w-md text-lg leading-10 text-muted">
-              {about.intro}
-            </p>
+            <span className="h-px w-full bg-gold/20" />
           </div>
 
-          <div
-            className={`transition-all delay-150 duration-1000 ${
-              inView ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
-            }`}
-          >
-            <div className="relative lg:border-l lg:border-gold/20 lg:pl-16">
-              <div className="max-w-5xl">
-                <div className="hidden items-start gap-7 lg:flex">
-                  <div className="mt-1 h-[26px] w-px bg-gold" />
-                  <p className="text-sm font-light italic leading-[1.8] tracking-[-0.02em] text-text xl:text-[1.15rem]">
-                    {about.quote}
-                  </p>
-                </div>
-
-                <div className="mt-8 grid gap-8 text-lg leading-10 text-muted md:grid-cols-2 md:gap-12 lg:mt-12">
-                  <p>{about.bodyLeft}</p>
-                  <p>{about.bodyRight}</p>
-                </div>
-              </div>
+          <div className="flex min-h-[calc(100svh-10rem)] items-center justify-center py-16 md:min-h-[calc(100svh-12rem)] md:py-0">
+            <div
+              className={`relative z-10 text-center transition-all duration-1000 ${
+                inView ? 'translate-y-0 opacity-100' : 'translate-y-7 opacity-0'
+              }`}
+            >
+              <h2 className="mx-auto max-w-3xl text-4xl font-light leading-[1.02] tracking-[-0.055em] text-dark sm:text-5xl md:text-6xl lg:text-7xl">
+                {about.title}{' '}
+                <span className="font-semibold text-gold">{about.emphasis}</span>
+              </h2>
+              <p className="mx-auto mt-7 max-w-2xl text-base leading-8 text-muted md:text-lg md:leading-8">
+                {about.description}
+              </p>
             </div>
+          </div>
+
+          <div className="grid grid-cols-1 gap-7 md:block">
+            {storyFrames.map((frame, index) => (
+              <StoryFrame
+                key={frame.src}
+                {...frame}
+                inView={inView}
+                index={index}
+                className={[
+                  'md:left-0 md:top-[14%] md:w-[24%]',
+                  'md:right-0 md:top-[11%] md:w-[29%]',
+                  'md:bottom-[11%] md:left-[5%] md:w-[16%]',
+                  'md:bottom-[9%] md:right-[1%] md:w-[25%]',
+                ][index]}
+              />
+            ))}
           </div>
         </div>
       </Container>
     </section>
+  );
+}
+
+function StoryFrame({
+  src,
+  alt,
+  className,
+  inView,
+  index,
+}: {
+  src: string;
+  alt: string;
+  className: string;
+  inView: boolean;
+  index: number;
+}) {
+  return (
+    <div
+      className={`${className} group relative aspect-[1.38/1] overflow-hidden rounded-[1.7rem] shadow-[0_24px_45px_rgba(44,36,16,0.1)] transition-all duration-1000 md:absolute ${
+        inView ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
+      }`}
+      style={{ transitionDelay: `${150 + index * 100}ms` }}
+    >
+      <Image
+        src={src}
+        alt={alt}
+        fill
+        sizes="(min-width: 768px) 33vw, 100vw"
+        className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+      />
+      <div className="absolute inset-0 bg-gradient-to-t from-dark/15 via-transparent to-cream/5" />
+    </div>
   );
 }
