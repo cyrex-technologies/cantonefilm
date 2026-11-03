@@ -44,7 +44,7 @@ export default function PortfolioSection() {
             href={section.cta.href}
             variant="outline"
             size="md"
-            className={`border-brown/20 transition-all duration-1000 ${
+            className={`max-md:!hidden border-brown/20 transition-all duration-1000 md:!inline-flex ${
               inView ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
             }`}
             rightIcon={<ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />}
@@ -153,6 +153,18 @@ export default function PortfolioSection() {
               </a>
             ))}
           </div>
+
+          <Button
+            href={section.cta.href}
+            variant="outline"
+            size="md"
+            className={`w-full border-brown/20 transition-all duration-1000 md:hidden ${
+              inView ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
+            }`}
+            rightIcon={<ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />}
+          >
+            {section.cta.label}
+          </Button>
         </div>
       </Container>
     </section>
